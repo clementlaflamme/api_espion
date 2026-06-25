@@ -52,6 +52,6 @@ model Mission{
     statut              StatutMission @default(DISPONIBLE)
     recompense          String
     createdAt           DateTime @default(now())
-    agentId             String
-    agent               Agent @relation(fields:[agentId], references: [id])
+    agentId             String?
+    agent               Agent? @relation(fields:[agentId], references: [id])  
 }
