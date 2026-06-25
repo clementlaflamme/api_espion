@@ -11,3 +11,47 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Role{
+    AGENT
+    CHEF
+}
+
+enum Habilitation{
+    CONFIDENTIEL
+    SECRET
+    TRES_SECRET
+}
+
+enum StatutMission{
+    DISPONIBLE
+    EN_COURS
+    REUSSIE
+    ECHOUEE
+}
+
+model Agent{
+    id              String @id @default(uuid())
+    username        String @unique
+    email           String
+    mdp             String
+    role            Role @default(AGENT)
+    habilitation    Habilitation @default(CONFIDENTIEL)
+    nom             String
+    nationalite     String
+    photo           String
+    createdAt       DateTime @default(now())
+    missions        Mission[]
+}
+
+model Mission{
+    id                  Int @id @default(autoincrement())
+    titre               String
+    description         String
+    nivConfidentialite  Habilitation @default(CONFIDENTIEL)
+    statut              StatutMission @default(DISPONIBLE)
+    recompense          String
+    createdAt           DateTime @default(now())
+    agentId             String
+    agent               Agent @relation(fields:[agentId], references: [id])
+}
