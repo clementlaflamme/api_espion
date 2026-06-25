@@ -75,7 +75,7 @@ routerMissions.patch(
         where: { id: id_mission },
         data: { agentId: id_agent },
       });
-      res.status(20).json({ message: "Agent assigné :", mission });
+      res.status(200).json({ message: "Agent assigné :", mission });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: "Erreur: requête mal formée." });
@@ -85,14 +85,14 @@ routerMissions.patch(
 
 // Delete
 routerMissions.delete(
-  "/supprimer:id",
+  "/supprimer/:id",
   authentifier,
   exigerRole("CHEF"),
   async (req: Request, res: Response) => {
     try {
       const id: any = req.params.id;
       const mission = await prisma.mission.delete({ where: id });
-      res.status(20).json({ message: "Mission supprimée :", mission });
+      res.status(200).json({ message: "Mission supprimée :", mission });
     } catch (error) {
       console.log(error);
       res.status(404).json({ message: "Erreur: mission non trouvée." });

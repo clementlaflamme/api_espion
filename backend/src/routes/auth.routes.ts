@@ -61,8 +61,8 @@ routerAuth.post("/inscription", async (req: Request, res: Response) => {
             createdAt: agent.createdAt
         })
 
-    } catch {
-        res.status(400).json({ erreur: "Cet identifiant est déjà utilisé" })
+    } catch (error) {
+        res.status(400).json({ erreur: `${error}` })
     }
 })
 
@@ -80,7 +80,7 @@ routerAuth.post("/connexion", async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign(
-        { sub: agent.id, role: agent.role },
+        { sub: agent.id, role: agent.role, habilitation: agent.habilitation },
         process.env.JWT_SECRET!,
         { expiresIn: "1h" }
     )
