@@ -1,9 +1,4 @@
-import {
-  Router,
-  type Request,
-  type Response,
-  type NextFunction,
-} from "express";
+import { Router, type Request, type Response } from "express";
 import prisma from "../../utils/prisma.js";
 import { authentifier, exigerRole } from "../middleware/auth.js";
 import type { Habilitation } from "../generated/prisma/enums.js";
@@ -58,7 +53,7 @@ routerMissions.post(
       res.status(201).json({ message: "Mission créée :", mission });
     } catch (error) {
       console.log(error);
-      res.status(400).json({ message: "Erreur: requête mal formée." });
+      res.status(400).json({ message: "Erreur: requête mal formée.", error });
     }
   },
 );
@@ -75,7 +70,7 @@ routerMissions.patch(
         where: { id: id_mission },
         data: { agentId: id_agent },
       });
-      res.status(20).json({ message: "Agent assigné :", mission });
+      res.status(200).json({ message: "Agent assigné :", mission });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: "Erreur: requête mal formée." });
@@ -85,14 +80,14 @@ routerMissions.patch(
 
 // Delete
 routerMissions.delete(
-  "/supprimer:id",
+  "/supprimer/:id",
   authentifier,
   exigerRole("CHEF"),
   async (req: Request, res: Response) => {
     try {
-      const id: any = req.params.id;
-      const mission = await prisma.mission.delete({ where: id });
-      res.status(20).json({ message: "Mission supprimée :", mission });
+      const id = parseInt((req.params.id as any), 10);
+      const mission = await prisma.mission.delete({ where: {id} });
+      res.status(200).json({ message: "Mission supprimée :", mission });
     } catch (error) {
       console.log(error);
       res.status(404).json({ message: "Erreur: mission non trouvée." });
