@@ -43,6 +43,20 @@ Lancer le serveur:
 
     npm run dev
 
+🛣️ Liste des routes:
+
+­Inscription: http://localhost:3000/auth/inscription/
+
+Connexion: http://localhost:3000/auth/connexion/
+
+Consultation des missions: http://localhost:3000/missions/
+
+Créer une mission: http://localhost:3000/missions/creer/
+
+Assigner une mission: http://localhost:3000/missions/assigner/
+
+Supprimer une mission: http://localhost:3000/missions/supprimer/:id/
+
 
 🌐 Services externes
 
