@@ -16,7 +16,7 @@ app.get("/", (req: Request, res: Response) => {
   res.json({ message: "Serveur fonctionnel !" });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
   console.log(`Serveur sur le http://localhost:${PORT}/`);
