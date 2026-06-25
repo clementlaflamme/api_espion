@@ -99,3 +99,5 @@ routerMissions.delete(
     }
   },
 );
+
+export default routerMissions;
