@@ -10,16 +10,16 @@ const routerAuth = Router()
 async function recupererIdentite() {
     try {
         const { data } = await axios.get("https://randomuser.me/api/")
-        const r = data.results[0]
+        const agent = data.results[0]
 
         return {
-            nom: `${r.name.first} ${r.name.last}`,
-            nationalite: r.nat,
-            photo: r.picture.large,
-            email: r.email
+            nom: `${agent.name.first} ${agent.name.last}`,
+            nationalite: agent.nat,
+            photo: agent.picture.large,
+            email: agent.email
         }
     } catch (e) {
-        console.log("Erreur RandomUser :", e)
+        console.log("Erreur avec l'api RandomUser :", e)
         return null
     }
 }
